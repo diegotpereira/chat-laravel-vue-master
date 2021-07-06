@@ -14,4 +14,16 @@ class MessageController extends Controller
 
         return response()->json($messages);
     }
+
+    public function store(Request $request)
+    {
+        $message = $request->user()->messages()->create([
+            'body' => $request->body
+        ]);
+
+        broadcast(new MessageCreated($message))
+                ->toOthers();
+
+        return response()->json($message);
+    }
 }
