@@ -1,22 +1,21 @@
 <template>
-    <div>
-        <form class="form">
-            <textarea 
-                cols="25"
-                rows="5"
-                class="form-input">
-            </textarea>
-            <span class="notice">
-                Pressione voltar para enviar uma mensagem
-            </span>
-        </form>
-    </div>
+    <form class="form">
+        <textarea
+            id="body"
+            cols="28"
+            rows="5"
+            class="form-input"
+            @keydown="typing"
+            v-model="body">
+        </textarea>
+        <span class="notice">
+            Pressione entre para enviar uma mensagem
+        </span>
+    </form>
 </template>
 
 <script>
-
     import Event from '../event.js';
-
     export default {
         data() {
             return {
@@ -36,11 +35,11 @@
                 }
                 let messageObj = this.buildMessage();
                 Event.$emit('added_message', messageObj);
-                    axios.post('/message', {
+                axios.post('/message', {
                     body: this.body.trim()
-                    }).catch(() => {
-                        console.log('failed');
-                    });
+                }).catch(() => {
+                    console.log('failed');
+                });
                 this.body = null;
             },
             buildMessage() {
@@ -49,7 +48,7 @@
                     body: this.body,
                     selfMessage: true,
                     user: {
-                        name: 'Diego'
+                        name: Laravel.user.name
                     }
                 }
             }

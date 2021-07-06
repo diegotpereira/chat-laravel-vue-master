@@ -1888,6 +1888,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -1922,7 +1923,7 @@ __webpack_require__.r(__webpack_exports__);
         body: this.body,
         selfMessage: true,
         user: {
-          name: 'Diego'
+          name: Laravel.user.name
         }
       };
     }
@@ -44663,29 +44664,36 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("form", { staticClass: "form" }, [
-        _c("textarea", {
-          staticClass: "form-input",
-          attrs: { cols: "25", rows: "5" }
-        }),
-        _vm._v(" "),
-        _c("span", { staticClass: "notice" }, [
-          _vm._v(
-            "\n            Pressione voltar para enviar uma mensagem\n        "
-          )
-        ])
-      ])
+  return _c("form", { staticClass: "form" }, [
+    _c("textarea", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.body,
+          expression: "body"
+        }
+      ],
+      staticClass: "form-input",
+      attrs: { id: "body", cols: "28", rows: "5" },
+      domProps: { value: _vm.body },
+      on: {
+        keydown: _vm.typing,
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.body = $event.target.value
+        }
+      }
+    }),
+    _vm._v(" "),
+    _c("span", { staticClass: "notice" }, [
+      _vm._v("\n        Pressione entre para enviar uma mensagem\n    ")
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
